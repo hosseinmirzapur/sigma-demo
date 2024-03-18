@@ -14,6 +14,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use function Termwind\render;
 
 class DocumentResource extends Resource
 {
@@ -28,21 +29,28 @@ class DocumentResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('عنوان')
                     ->required(),
                 Forms\Components\Textarea::make('description')
+                    ->label('توضیحات')
                     ->columnSpanFull(),
                 Forms\Components\FileUpload::make('file')
+                    ->label('فایل')
                     ->acceptedFileTypes(['pdf', 'docx', 'xlsx', 'txt', 'image/*'])
+                    ->helperText('فرمت های مجاز: pdf docx xlsx txt jpg png svg')
                     ->required(),
                 Forms\Components\Select::make('order_id')
+                    ->label('شماره پرونده سفارش')
                     ->relationship('order', 'doc_number')
                     ->preload()
                     ->searchable()
                     ->required(),
                 Forms\Components\TextInput::make('onVerifyStatus')
+                    ->label('وضعیت سفارش بعد از تایید مدرک')
                     ->helperText('what status order will have after document verification')
                     ->required(),
                 Forms\Components\TextInput::make('onRejectStatus')
+                    ->label('وضعیت سفارش بعد از رد مدرک')
                     ->helperText('what status document will have after document rejection')
                     ->required(),
             ]);
@@ -75,6 +83,7 @@ class DocumentResource extends Resource
             ->filters([
                 //
             ])
+            ->emptyStateHeading('سندی یافت نشد')
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),

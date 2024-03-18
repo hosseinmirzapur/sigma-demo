@@ -27,11 +27,14 @@ class TransactionResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('amount')
                     ->prefix('تومان')
+                    ->label('مبلغ')
                     ->required()
                     ->numeric(),
                 Forms\Components\Textarea::make('description')
+                    ->label('توضیحات تراکنش')
                     ->columnSpanFull(),
                 Forms\Components\Select::make('order_id')
+                    ->label('شماره پرونده سفارش')
                     ->relationship('order', 'doc_number')
                     ->searchable()
                     ->preload()
@@ -75,6 +78,7 @@ class TransactionResource extends Resource
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
+            ->emptyStateHeading('تراکنشی یافت نشد')
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),

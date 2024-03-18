@@ -39,10 +39,13 @@ class ProductResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('نام محصول')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('price_code')
+                    ->label('کد تعرفه')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('metadata')
+                    ->label('جزییات خاص محصول')
                     ->markdown()
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
@@ -62,6 +65,7 @@ class ProductResource extends Resource
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
+            ->emptyStateHeading('محصولی یافت نشد')
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),

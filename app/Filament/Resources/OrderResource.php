@@ -25,14 +25,20 @@ class OrderResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('doc_number')->required(),
-                Forms\Components\TextInput::make('submit_number'),
+                Forms\Components\TextInput::make('doc_number')
+                    ->label('شماره پرونده')
+                    ->required(),
+                Forms\Components\TextInput::make('submit_number')
+                    ->label('کد ثبت'),
                 Forms\Components\DatePicker::make('submit_date')
+                    ->label('تاریخ ثبت')
                     ->native(false)
                     ->required(),
                 Forms\Components\DatePicker::make('expire_date')
+                    ->label('تاریخ پایان')
                     ->native(false),
                 Forms\Components\TextInput::make('status')
+                    ->label('وضعیت')
                     ->required(),
             ]);
     }
@@ -69,6 +75,7 @@ class OrderResource extends Resource
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
+            ->emptyStateHeading('سفارشی یافت نشد')
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
